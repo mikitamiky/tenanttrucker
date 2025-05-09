@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "313745694703",
+    "project_id": "realestatetenantfinder",
+    "storage_bucket": "realestatetenantfinder.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313745694703:android:6c042600b586b24487601a",
+        "android_client_info": {
+          "package_name": "com.Mikita.realEstatetenantfinder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtEPhR58AsLyngDmbLUx1eUZd0QEfvxfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
