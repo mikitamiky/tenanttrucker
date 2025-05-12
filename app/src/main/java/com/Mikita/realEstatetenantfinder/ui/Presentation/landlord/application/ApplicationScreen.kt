@@ -18,6 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.Mikita.realEstatetenantfinder.data.model.navigation.LANDLORD_LISTINGS_SCREEN
+import com.Mikita.realEstatetenantfinder.data.model.navigation.TENANT_APPLICATION_SCREEN
 
 @Composable
 fun LandlordApplicationScreen(
@@ -39,7 +41,7 @@ fun LandlordApplicationScreen(
 
         Button(onClick = {
             // Navigate to property management screen
-            navController.navigate("landlord_property_screen")
+            navController.navigate(LANDLORD_LISTINGS_SCREEN)
         }) {
             Text("Manage Properties")
         }
@@ -48,7 +50,7 @@ fun LandlordApplicationScreen(
 
         Button(onClick = {
             // Navigate to tenant applications screen
-            navController.navigate("tenant_applications_screen")
+            navController.navigate(   TENANT_APPLICATION_SCREEN)
         }) {
             Text("View Tenant Applications")
         }

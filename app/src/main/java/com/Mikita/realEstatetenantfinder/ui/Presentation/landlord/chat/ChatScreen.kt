@@ -1,4 +1,4 @@
-package com.Mikita.realEstatetenantfinder.ui.Presentation.tenant.chat
+package com.Mikita.realEstatetenantfinder.ui.Presentation.landlord.chat
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -9,50 +9,37 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.Mikita.realEstatetenantfinder.data.model.ChatMessage
 import kotlinx.coroutines.launch
+import com.Mikita.realEstatetenantfinder.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TenantChatScreen(
-    navController: NavController,
-    viewModel: TenantChatViewModel = viewModel()
-) {
-    val messages by viewModel.messages.collectAsState()
+fun LandlordChatScreen(navController: NavController) {
     var message by remember { mutableStateOf("") }
+    var chatHistory by remember { mutableStateOf(listOf<Pair<String, Boolean>>()) }
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
-
-    LaunchedEffect(messages) {
-        if (messages.isNotEmpty()) {
-            coroutineScope.launch {
-                listState.animateScrollToItem(messages.size - 1)
-            }
-        }
-    }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Landlord Chat",
+                        text = "Tenant Chat",
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                     )
                 },
@@ -98,8 +85,16 @@ fun TenantChatScreen(
                 IconButton(
                     onClick = {
                         if (message.isNotBlank()) {
-                            viewModel.sendMessage(message)
+                            chatHistory = chatHistory + Pair(message, true)
                             message = ""
+                            coroutineScope.launch {
+                                kotlinx.coroutines.delay(1000)
+                                chatHistory = chatHistory + Pair("Thanks for your message!", false)
+                                listState.animateScrollToItem(chatHistory.size - 1)
+                            }
+                            coroutineScope.launch {
+                                listState.animateScrollToItem(chatHistory.size - 1)
+                            }
                         }
                     },
                     modifier = Modifier
@@ -108,7 +103,7 @@ fun TenantChatScreen(
                         .background(MaterialTheme.colorScheme.primary)
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.Send,
+                        painter = painterResource(id = R.drawable.ic_send),
                         contentDescription = "Send",
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
@@ -124,42 +119,43 @@ fun TenantChatScreen(
             state = listState,
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(messages) { chatMessage ->
-                ChatBubble(message = chatMessage)
+            items(chatHistory) { (chatMessage, isSentByUser) ->
+                ChatBubble(
+                    message = chatMessage,
+                    isSentByUser = isSentByUser
+                )
             }
         }
     }
 }
 
 @Composable
-fun ChatBubble(message: ChatMessage) {
-    val bubbleColor = if (message.isFromTenant) Color(0xFFDCF8C6) else Color(0xFFECEFF1)
-    val alignment = if (message.isFromTenant) Arrangement.End else Arrangement.Start
-
+fun ChatBubble(message: String, isSentByUser: Boolean) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 4.dp),
-        horizontalArrangement = alignment
+            .padding(vertical = 4.dp),
+        horizontalArrangement = if (isSentByUser) Arrangement.End else Arrangement.Start
     ) {
         Box(
             modifier = Modifier
-                .clip(
-                    RoundedCornerShape(
-                        topStart = 12.dp,
-                        topEnd = 12.dp,
-                        bottomStart = if (message.isFromTenant) 12.dp else 0.dp,
-                        bottomEnd = if (message.isFromTenant) 0.dp else 12.dp
-                    )
+                .clip(RoundedCornerShape(
+                    topStart = 12.dp,
+                    topEnd = 12.dp,
+                    bottomStart = if (isSentByUser) 12.dp else 0.dp,
+                    bottomEnd = if (isSentByUser) 0.dp else 12.dp
+                ))
+                .background(
+                    if (isSentByUser) MaterialTheme.colorScheme.primary.copy(alpha = 0.9f)
+                    else MaterialTheme.colorScheme.surfaceVariant
                 )
-                .background(bubbleColor)
                 .padding(12.dp)
         ) {
             Text(
-                text = message.text,
-                color = Color.Black, // Changed to black
-                fontSize = 16.sp,
-                style = MaterialTheme.typography.bodyMedium
+                text = message,
+                color = if (isSentByUser) MaterialTheme.colorScheme.onPrimary
+                else MaterialTheme.colorScheme.onSurface,
+                fontSize = 16.sp
             )
         }
     }
@@ -167,8 +163,8 @@ fun ChatBubble(message: ChatMessage) {
 
 @Preview(showBackground = true)
 @Composable
-private fun TenantChatScreenPreview() {
+private fun LandlordChatScreenPreview() {
     MaterialTheme {
-        TenantChatScreen(rememberNavController())
+        LandlordChatScreen(rememberNavController())
     }
 }

@@ -1,4 +1,4 @@
-package com.Mikita.realEstatetenantfinder.ui.Presentation.tenant.home
+package com.Mikita.realEstatetenantfinder.ui.Presentation.home
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.spring
@@ -12,31 +12,30 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.Mikita.realEstatetenantfinder.data.model.navigation.LANDLORD_SCREEN
-import com.Mikita.realEstatetenantfinder.data.model.navigation.ROUTE_ROLE_SELECTION
+
 import com.example.eventflow.viewmodel.AuthViewModel
 import androidx.compose.ui.platform.LocalContext
+import com.Mikita.realEstatetenantfinder.data.model.navigation.LANDLORD_APPLICATION_SCREEN
+import com.Mikita.realEstatetenantfinder.data.model.navigation.LANDLORD_CHAT_SCREEN
+import com.Mikita.realEstatetenantfinder.data.model.navigation.LANDLORD_PAYMENT_SCREEN
+import com.Mikita.realEstatetenantfinder.data.model.navigation.LANDLORD_SCREEN
 import com.Mikita.realEstatetenantfinder.data.model.navigation.ROUTE_PROFILE
-import com.Mikita.realEstatetenantfinder.data.model.navigation.TENANT_APPLICATION_SCREEN
-import com.Mikita.realEstatetenantfinder.data.model.navigation.TENANT_CHAT_SCREEN
-import com.Mikita.realEstatetenantfinder.data.model.navigation.TENANT_MAINTENANCE_SCREEN
-import com.Mikita.realEstatetenantfinder.data.model.navigation.TENANT_PAYMENT_SCREEN
-import com.Mikita.realEstatetenantfinder.ui.Presentation.tenant.application.ApplicationScreen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TenantHomeScreen(
+fun LandlordHomeScreen(
     navController: NavController,
     authViewModel: AuthViewModel
 ) {
@@ -50,7 +49,7 @@ fun TenantHomeScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Tenant Dashboard",
+                        text = "Landlord Dashboard",
                         color = Color.White,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -82,47 +81,56 @@ fun TenantHomeScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
-                text = "Welcome, Tenant!",
+                text = "Welcome, Landlord!",
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
 
             HomeActionCard(
-                title = "Chat with Landlord",
+                title = "Chat with Tenant",
                 icon = Icons.Default.Email,
                 iconTint = accentColor,
-                destination = TENANT_CHAT_SCREEN,
+                destination = LANDLORD_CHAT_SCREEN,
+                navController = navController,
+                cardColor = surfaceColor,
+                textColor = Color.White
+            )
+
+           HomeActionCard(
+              title = "Listing Houses",
+               icon = Icons.Default.Settings,
+               iconTint = accentColor,
+                destination = LANDLORD_SCREEN,
+               navController = navController,
+                cardColor = surfaceColor,
+               textColor = Color.White
+
+         )
+            HomeActionCard(
+                title = " Manage pplication",
+                icon = Icons.Default.Settings,
+                iconTint = accentColor,
+                destination = LANDLORD_APPLICATION_SCREEN,
                 navController = navController,
                 cardColor = surfaceColor,
                 textColor = Color.White
             )
 
             HomeActionCard(
-                title = "Maintenance Request",
+                title = " Manage House Payment",
                 icon = Icons.Default.Settings,
                 iconTint = accentColor,
-                destination = TENANT_MAINTENANCE_SCREEN,
-                navController = navController,
-                cardColor = surfaceColor,
-                textColor = Color.White
-
-            )
-            HomeActionCard(
-                title = "House Application",
-                icon = Icons.Default.Settings,
-                iconTint = accentColor,
-                destination = TENANT_APPLICATION_SCREEN,
+                destination = LANDLORD_PAYMENT_SCREEN,
                 navController = navController,
                 cardColor = surfaceColor,
                 textColor = Color.White
             )
-
-            HomeActionCard(
-                title = "House Payment",
+HomeActionCard(
+                title = " Management and maintenance",
                 icon = Icons.Default.Settings,
                 iconTint = accentColor,
-                destination = TENANT_PAYMENT_SCREEN,
+                destination = LANDLORD_PAYMENT_SCREEN,
                 navController = navController,
                 cardColor = surfaceColor,
                 textColor = Color.White
@@ -144,7 +152,7 @@ fun TenantHomeScreen(
 @Composable
 fun HomeActionCard(
     title: String,
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     iconTint: Color,
     destination: String,
     navController: NavController,
@@ -193,8 +201,8 @@ fun HomeActionCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun TenantHomePreview() {
-    TenantHomeScreen(
+private fun LandlordHomePreview() {
+    LandlordHomeScreen(
         navController = rememberNavController(),
         authViewModel = AuthViewModel()
     )

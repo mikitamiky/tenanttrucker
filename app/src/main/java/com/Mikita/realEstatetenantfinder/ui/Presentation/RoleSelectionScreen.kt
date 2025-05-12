@@ -49,13 +49,13 @@ fun RoleSelectionScreen(navController: NavController, authViewModel: AuthViewMod
             ) {
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "Choose Your Role",
+                    text = "Name your role",
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color.White,
                     fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold
                 )
                 Text(
-                    text = "Select how you want to use EventFlow",
+                    text = "Select how you want to use the app",
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.White.copy(alpha = 0.7f)
                 )
@@ -74,7 +74,7 @@ fun RoleSelectionScreen(navController: NavController, authViewModel: AuthViewMod
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(24.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Button(
@@ -88,12 +88,12 @@ fun RoleSelectionScreen(navController: NavController, authViewModel: AuthViewMod
                             contentColor = Color.White
                         )
                     ) {
+
                         Text(
                             text = "Tenant",
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = androidx.compose.ui.text.font.FontWeight.Bold
                         )
-
 
                         Button(
                             onClick = { selectedRole = "Landlord" },

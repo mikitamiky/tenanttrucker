@@ -12,13 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 
 data class PropertyListing(val id: Int, val title: String, val location: String, val price: String)
 
 @Composable
 fun ManageListingsScreen(
-    navController: NavController,
+    navController: NavHostController,
     listings: List<PropertyListing> = remember {
         listOf(
             PropertyListing(1, "2-Bedroom Apartment", "Nairobi", "KSh 25,000"),

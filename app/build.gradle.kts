@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.gms.google.services)
+    id("org.jetbrains.kotlin.kapt") // Apply kapt plugin explicitly
 }
 
 android {
@@ -54,6 +55,12 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.firebase.inappmessaging.display)
+    implementation(libs.firebase.messaging)
+    kapt("com.google.dagger:hilt-android-compiler:2.56.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("com.google.dagger:hilt-android:2.56.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -61,5 +68,11 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+//kapt
+//arguments {
+//    arg("dagger.hilt.verbose", "true")
+//  }
+//}
 
 }

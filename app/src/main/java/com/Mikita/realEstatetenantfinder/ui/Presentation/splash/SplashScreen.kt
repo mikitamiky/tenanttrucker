@@ -52,7 +52,7 @@ fun SplashScreen(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Icon(
                 imageVector = Icons.Default.Star,
-                contentDescription = "App Logo",
+                contentDescription = "Mikita APP",
                 modifier = Modifier.size(100.dp),
                 tint = Color.Blue
             )

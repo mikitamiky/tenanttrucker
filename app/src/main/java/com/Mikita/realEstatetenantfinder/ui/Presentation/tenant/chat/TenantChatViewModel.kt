@@ -1,11 +1,9 @@
 package com.Mikita.realEstatetenantfinder.ui.Presentation.tenant.chat
 
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.Mikita.realEstatetenantfinder.data.model.ChatMessage
-
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

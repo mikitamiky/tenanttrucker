@@ -5,9 +5,10 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.Mikita.realEstatetenantfinder.data.model.navigation.LANDLORD_SCREEN
 import com.Mikita.realEstatetenantfinder.data.model.navigation.ROUTE_HOME
 import com.Mikita.realEstatetenantfinder.data.model.navigation.ROUTE_LOGIN
-import com.Mikita.realEstatetenantfinder.data.model.navigation.ROUTE_TENANT
+import com.Mikita.realEstatetenantfinder.data.model.navigation.TENANT_HOME_SCREEN
 import com.Mikita.realEstatetenantfinder.data.model.navigation.ROUTE_ROLE_SELECTION
 import com.example.eventflow.data.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -58,7 +59,7 @@ class AuthViewModel : ViewModel() {
             _isLoading.value = false
             if (result.isSuccess) {
                 Toast.makeText(context, "Role saved successfully", Toast.LENGTH_LONG).show()
-                val destination = if (role == "Landlord") ROUTE_HOME else ROUTE_TENANT
+                val destination = if (role == "Landlord") ROUTE_HOME else TENANT_HOME_SCREEN
                 navController.navigate(destination)
             } else {
                 _errorMessage.value = result.exceptionOrNull()?.message ?: "Failed to save role"
@@ -83,7 +84,7 @@ class AuthViewModel : ViewModel() {
                         _isLoading.value = false
                         if (user != null) {
                             Toast.makeText(context, "Login successful", Toast.LENGTH_LONG).show()
-                            val destination = if (user.role == "Landlord") ROUTE_HOME else ROUTE_TENANT
+                            val destination = if (user.role == "Landlord") LANDLORD_SCREEN else TENANT_HOME_SCREEN
                             navController.navigate(destination)
                         } else {
                             _errorMessage.value = "User data not found"
@@ -111,7 +112,8 @@ class AuthViewModel : ViewModel() {
     suspend fun updateUserProfile(
         displayName: String,
         email: String,
-        password: String?
+        password: String?,
+        bio: String
     ): Result<Unit> {
         return try {
             val userId = repository.getCurrentUserId() ?: throw Exception("User not logged in")

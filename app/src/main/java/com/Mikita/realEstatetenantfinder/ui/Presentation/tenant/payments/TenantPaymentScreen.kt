@@ -28,7 +28,7 @@ fun TenantPaymentScreen(navController: NavController,
     ) {
         Text(text = "💳 Payment Dashboard", style = MaterialTheme.typography.headlineMedium)
 
-        Text(text = "Rent Due: KSh${String.format("%.2f", dueAmount)}" , style = MaterialTheme.typography.titleLarge)
+        Text(text = "Rent Due: KSh${String.format("5000", dueAmount)}" , style = MaterialTheme.typography.titleLarge)
 
         Text(text = "Status: $status", style = MaterialTheme.typography.bodyLarge)
 

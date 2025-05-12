@@ -23,7 +23,7 @@ fun ApplicationCard(application: Application) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = application.propertyName, style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = "Landlord: ${application.landlordName}")
+               Text(text = "Landlord: ${application.landlordName}")
             Text(text = "Status: ${application.status.capitalize()}")
         }
     }

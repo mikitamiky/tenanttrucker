@@ -78,7 +78,7 @@ fun SignUpScreen(navController: NavController, authViewModel: AuthViewModel) {
             ) {
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = "Join EventFlow",
+                    text = "Welcme to Mikita Real Estate",
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color.White,
                     fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold
